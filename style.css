@@ -4,34 +4,34 @@
  Author:       Ricardo Leal Piñeres
  Author URI:   https://ricardoleal.cloud
  Template:     generatepress
- Version:      1.1.0
+ Version:      1.1.1
 */
 
 /* ==========================================================================
-   1. VARIABLES DE SISTEMA (Arquitectura de Color)
+   1. VARIABLES DE SISTEMA (Arquitectura de Color Dinámica)
    ========================================================================== */
 
 /* Modo Oscuro - Predeterminado (Vibe: Apple Pro / High Tech) */
 :root {
     --bg-color: #000000;              /* Negro puro Apple */
-    --header-bg: rgba(0, 0, 0, 0.7);  /* Transparencia para Glassmorphism */
-    --text-main: #f5f5f7;             /* Blanco roto Apple */
-    --text-secondary: #a1a1a6;        /* Gris para descripciones */
+    --header-bg: rgba(0, 0, 0, 0.85); /* Transparencia para Glassmorphism */
+    --text-main: #f5f5f7;             /* Blanco roto Apple (Contraste 18:1) */
+    --text-secondary: #a1a1a6;        /* Gris descripciones */
     --accent-blue: #0071e3;           /* Azul de acción Apple */
     --card-bg: #1c1c1e;               /* Gris oscuro para contenedores */
-    --border-color: rgba(255, 255, 255, 0.1);
+    --border-color: rgba(255, 255, 255, 0.12);
     --selection-bg: rgba(0, 113, 227, 0.3);
 }
 
-/* Modo Claro - Clase activada por JS (Vibe: Stephango / Pureza) */
+/* Modo Claro - Activado por clase JS */
 body.light-mode {
     --bg-color: #ffffff;
-    --header-bg: rgba(255, 255, 255, 0.8);
+    --header-bg: rgba(255, 255, 255, 0.85);
     --text-main: #1d1d1f;
     --text-secondary: #86868b;
     --accent-blue: #0066cc;
     --card-bg: #f5f5f7;
-    --border-color: rgba(0, 0, 0, 0.05);
+    --border-color: rgba(0, 0, 0, 0.08);
     --selection-bg: rgba(0, 102, 204, 0.2);
 }
 
@@ -44,44 +44,14 @@ body {
     color: var(--text-main) !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.4s ease, color 0.4s ease; /* Transición suave de tema */
-}
-/* Estilo del botón de cambio de modo (Integrado en el Sistema) */
-#theme-toggle {
-    background-color: var(--card-bg) !important; /* Ahora usa el fondo dinámico */
-    border: 1px solid var(--border-color) !important;
-    color: var(--text-main) !important;
-    
-    padding: 8px 12px;
-    border-radius: 12px; /* Un poco más Apple Style */
-    cursor: pointer;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* Transición suave para que el botón no "parpadee" al cambiar */
-    transition: background-color 0.4s ease, border-color 0.4s ease, transform 0.2s ease;
-    outline: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#theme-toggle:hover {
-    transform: scale(1.05);
-    filter: brightness(1.1); /* Brilla un poco al pasar el ratón */
-    border-color: var(--accent-blue) !important;
-}
-
-/* Ajuste para los iconos dentro del botón */
-#theme-toggle span {
-    line-height: 1;
-    display: block;
-}
 ::selection {
     background: var(--selection-bg);
 }
 
-/* Enlaces (Vibe: Tania Rascia) */
+/* Enlaces globales */
 a {
     color: var(--accent-blue);
     transition: opacity 0.2s ease-in-out;
@@ -89,10 +59,10 @@ a {
 }
 
 a:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
-/* Headers Técnicos (Vibe: Stephango / Fira Code) */
+/* Headers Técnicos */
 h1, h2, h3, h4 {
     font-family: 'Fira Code', 'IBM Plex Mono', monospace !important;
     font-weight: 600;
@@ -100,30 +70,111 @@ h1, h2, h3, h4 {
     color: var(--text-main) !important;
 }
 
-/* Párrafos Legibles (Vibe: Apple / Lectura larga) */
+/* Párrafos Legibles */
 p {
     line-height: 1.7;
     margin-bottom: 1.5em;
     color: var(--text-secondary) !important;
 }
 
+/* Botón de cambio de modo */
+#theme-toggle {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#theme-toggle:hover {
+    transform: scale(1.05);
+    border-color: var(--accent-blue) !important;
+}
+
+#theme-toggle span {
+    line-height: 1;
+    display: block;
+}
+
 /* ==========================================================================
-   3. COMPONENTES DE DISEÑO (UI)
+   3. CABECERA Y NAVEGACIÓN (Corrección del Nav Blanco)
    ========================================================================== */
 
-/* Cabecera con Efecto Cristal (Glassmorphism) */
-.site-header {
+.site-header,
+.main-navigation,
+.main-navigation ul ul,
+.inside-navigation,
+.navigation-clone {
     background-color: var(--header-bg) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    transition: background-color 0.3s ease;
+}
+
+.site-header {
     position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.4s ease;
 }
 
-/* Tarjetas Profesionales (The Apple Box) */
+/* Texto del logo / Marca */
+.site-title a, 
+.site-description {
+    color: var(--text-main) !important;
+    font-weight: 700;
+}
+
+/* Elementos del menú principal */
+.main-navigation .main-nav ul li a,
+.menu-toggle {
+    color: var(--text-main) !important;
+    font-weight: 500;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Estados Hover y Menú Activo */
+.main-navigation .main-nav ul li:hover > a,
+.main-navigation .main-nav ul li.current-menu-item > a {
+    background-color: var(--card-bg) !important;
+    color: var(--accent-blue) !important;
+}
+
+/* ==========================================================================
+   4. PIE DE PÁGINA (FOOTER)
+   ========================================================================== */
+
+.site-footer,
+.site-info {
+    background-color: var(--bg-color) !important;
+    color: var(--text-secondary) !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+.site-footer a {
+    color: var(--text-main) !important;
+}
+
+/* ==========================================================================
+   5. COMPONENTES Y TARJETAS (UI)
+   ========================================================================== */
+
+#page, .site-content, .inside-article {
+    background: transparent !important;
+}
+
+.entry-title {
+    color: var(--text-main) !important;
+}
+
 .gb-container.ricardo-card {
     background: var(--card-bg) !important;
     border: 1px solid var(--border-color) !important;
@@ -137,10 +188,9 @@ p {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Botón "Apple Capsule" (Usabilidad y Estética) */
 .apple-button, .gb-button.ricardo-cta {
     background-color: var(--accent-blue) !important;
-    color: #ffffff !important; /* Siempre blanco para contraste */
+    color: #ffffff !important;
     border-radius: 980px !important;
     padding: 12px 28px !important;
     font-weight: 600 !important;
@@ -156,17 +206,4 @@ p {
     transform: scale(1.03);
     filter: brightness(1.1);
     box-shadow: 0 8px 20px rgba(0, 113, 227, 0.4);
-}
-
-/* ==========================================================================
-   4. AJUSTES PARA WORDPRESS / GENERATEPRESS
-   ========================================================================== */
-
-/* Asegurar que el contenedor principal no tenga fondos blancos forzados */
-#page, .site-content, .inside-article {
-    background: transparent !important;
-}
-
-.entry-title {
-    color: var(--text-main) !important;
 }
