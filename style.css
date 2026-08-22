@@ -211,3 +211,30 @@ p {
     filter: brightness(1.1);
     box-shadow: 0 8px 20px rgba(0, 113, 227, 0.4);
 }
+
+/* ==========================================================================
+   COMPONENTES DE DISEÑO (UI)
+   ========================================================================== */
+
+/* Tarjetas Generales */
+.gb-container.card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.gb-container.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Cifras de Métricas (Dashboard) */
+.card .metric-number {
+    font-family: 'Fira Code', 'IBM Plex Mono', monospace !important;
+    font-size: 2.2rem !important;
+    font-weight: 700 !important;
+    color: var(--accent-blue) !important;
+    margin-bottom: 0.2em !important;
+}
