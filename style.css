@@ -133,6 +133,10 @@ p {
     font-weight: 700;
 }
 
+.site-header .site-title a {
+    color: var(--text-main) !important;
+}
+
 /* Elementos del menú principal */
 .main-navigation .main-nav ul li a,
 .menu-toggle {
