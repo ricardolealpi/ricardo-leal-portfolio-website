@@ -16,26 +16,23 @@ function ricardo_leal_enqueue_styles() {
 add_action('wp_footer', function() {
     ?>
     <script>
-        const toggleBtn = document.getElementById('theme-toggle');
-        const body = document.body;
-        const currentTheme = localStorage.getItem('theme');
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
 
-        // Verificar preferencia guardada
-        if (currentTheme === 'light') {
-            body.classList.add('light-mode');
-        }
+            // Restaurar tema guardado en localStorage
+            if (localStorage.getItem('theme') === 'light') {
+                body.classList.add('light-mode');
+            }
 
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
-                
-                let theme = 'dark';
-                if (body.classList.contains('light-mode')) {
-                    theme = 'light';
-                }
-                localStorage.setItem('theme', theme);
-            });
-        }
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    body.classList.toggle('light-mode');
+                    const isLight = body.classList.contains('light-mode');
+                    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                });
+            }
+        });
     </script>
     <?php
 });
