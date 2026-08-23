@@ -8,20 +8,75 @@
 */
 
 /* ==========================================================================
+   TIPOGRAFÍA FLUIDA Y SISTEMA RESPONSIVO
+   ========================================================================== */
+
+/* 1. Escala tipográfica dinámica (Calculada entre 320px y 1200px) */
+:root {
+    --font-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.85rem);  /* Badges / Metadatos */
+    --font-base: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);  /* Párrafos globales */
+    --font-h3:   clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);  /* Títulos de tarjetas */
+    --font-h2:   clamp(1.4rem, 1.25rem + 0.75vw, 1.75rem);  /* Títulos de sección */
+    --font-h1:   clamp(1.8rem, 1.5rem + 1.5vw, 2.5rem);     /* Título principal Hero */
+}
+
+body {
+    font-size: var(--font-base) !important;
+}
+
+p {
+    font-size: var(--font-base) !important;
+    line-height: 1.65 !important;
+}
+
+h1 { font-size: var(--font-h1) !important; }
+h2 { font-size: var(--font-h2) !important; }
+h3 { font-size: var(--font-h3) !important; }
+
+/* 2. Ajustes de espacio y tarjetas exclusivamente para móviles (< 768px) */
+@media (max-width: 768px) {
+    /* Margen lateral respirable para el contenido */
+    #page {
+        padding-left: 1.2rem !important;
+        padding-right: 1.2rem !important;
+    }
+
+    /* Reducir el relleno interno de las tarjetas en pantallas pequeñas */
+    .card {
+        padding: 1.2rem !important;
+        border-radius: 12px !important;
+    }
+
+    /* Botones CTA del Hero adaptados al ancho completo de la pantalla */
+    .hero-buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 100%;
+    }
+
+    .apple-button, 
+    .gb-button.ricardo-cta {
+        width: 100% !important;
+        text-align: center;
+        justify-content: center;
+    }
+}
+/* ==========================================================================
    1. VARIABLES DE SISTEMA (Arquitectura de Color Dinámica)
    ========================================================================== */
 
+/* Modo Oscuro - Estilo GitHub / Cloud Console */
 :root {
-    --bg-color: #000000;              /* Negro puro Apple */
-    --header-bg: rgba(0, 0, 0, 0.85); /* Transparencia para Glassmorphism */
-    --text-main: #f5f5f7;             /* Blanco roto Apple */
-    --text-secondary: #a1a1a6;        /* Gris descripciones */
-    --accent-blue: #0071e3;           /* Azul de acción Apple */
-    --card-bg: #1c1c1e;               /* Gris oscuro contenedores */
-    --border-color: rgba(255, 255, 255, 0.12);
-    --selection-bg: rgba(0, 113, 227, 0.3);
+    --bg-color: #0d1117;                 /* Gris carbón técnico */
+    --header-bg: rgba(13, 17, 23, 0.85);  /* Transparencia adaptada */
+    --text-main: #f0f6fc;                /* Blanco suave de baja fatiga */
+    --text-secondary: #8b949e;           /* Gris sutil para descripciones */
+    --accent-blue: #2f81f7;              /* Azul de acento de alta visibilidad */
+    --card-bg: #161b22;                  /* Fondo de tarjeta elevado 1 nivel */
+    --border-color: rgba(240, 246, 252, 0.1);
+    --selection-bg: rgba(47, 129, 247, 0.3);
 }
-
 body.light-mode {
     --bg-color: #ffffff;
     --header-bg: rgba(255, 255, 255, 0.85);
