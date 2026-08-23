@@ -118,17 +118,6 @@ p {
     color: var(--accent-blue) !important;
 }
 
-/* Disposición de Sidebar Lateral Fijo */
-@media (min-width: 1025px) {
-    .site-header {
-        width: 220px !important;
-    }
-    
-    #page {
-        margin-left: 220px !important;
-        width: calc(100% - 220px) !important;
-    }
-}
 
 /* ==========================================================================
    4. BOTÓN Y CONMUTADOR DE MODO OSCURO / CLARO
