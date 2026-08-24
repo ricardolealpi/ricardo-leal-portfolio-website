@@ -8,66 +8,18 @@
 */
 
 /* ==========================================================================
-   TIPOGRAFÍA FLUIDA Y SISTEMA RESPONSIVO
+   1. VARIABLES DEL SISTEMA (Tipografía Fluida y Paleta Dinámica)
    ========================================================================== */
 
-/* 1. Escala tipográfica dinámica (Calculada entre 320px y 1200px) */
 :root {
+    /* Escala tipográfica dinámica (Calculada entre 320px y 1200px) */
     --font-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.85rem);  /* Badges / Metadatos */
     --font-base: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);  /* Párrafos globales */
     --font-h3:   clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);  /* Títulos de tarjetas */
     --font-h2:   clamp(1.4rem, 1.25rem + 0.75vw, 1.75rem);  /* Títulos de sección */
     --font-h1:   clamp(1.8rem, 1.5rem + 1.5vw, 2.5rem);     /* Título principal Hero */
-}
 
-body {
-    font-size: var(--font-base) !important;
-}
-
-p {
-    font-size: var(--font-base) !important;
-    line-height: 1.65 !important;
-}
-
-h1 { font-size: var(--font-h1) !important; }
-h2 { font-size: var(--font-h2) !important; }
-h3 { font-size: var(--font-h3) !important; }
-
-/* 2. Ajustes de espacio y tarjetas exclusivamente para móviles (< 768px) */
-@media (max-width: 768px) {
-    /* Margen lateral respirable para el contenido */
-    #page {
-        padding-left: 1.2rem !important;
-        padding-right: 1.2rem !important;
-    }
-
-    /* Reducir el relleno interno de las tarjetas en pantallas pequeñas */
-    .card {
-        padding: 1.2rem !important;
-        border-radius: 12px !important;
-    }
-
-    /* Botones CTA del Hero adaptados al ancho completo de la pantalla */
-    .hero-buttons-container {
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-        width: 100%;
-    }
-
-    .apple-button, 
-    .gb-button.ricardo-cta {
-        width: 100% !important;
-        text-align: center;
-        justify-content: center;
-    }
-}
-/* ==========================================================================
-   1. VARIABLES DE SISTEMA (Arquitectura de Color Dinámica)
-   ========================================================================== */
-
-/* Modo Oscuro - Estilo GitHub / Cloud Console */
-:root {
+    /* Modo Oscuro (Default) - Estilo GitHub / Cloud Console */
     --bg-color: #0d1117;                 /* Gris carbón técnico */
     --header-bg: rgba(13, 17, 23, 0.85);  /* Transparencia adaptada */
     --text-main: #f0f6fc;                /* Blanco suave de baja fatiga */
@@ -77,6 +29,8 @@ h3 { font-size: var(--font-h3) !important; }
     --border-color: rgba(240, 246, 252, 0.1);
     --selection-bg: rgba(47, 129, 247, 0.3);
 }
+
+/* Modo Claro Override */
 body.light-mode {
     --bg-color: #ffffff;
     --header-bg: rgba(255, 255, 255, 0.85);
@@ -95,6 +49,7 @@ body.light-mode {
 body {
     background-color: var(--bg-color) !important;
     color: var(--text-main) !important;
+    font-size: var(--font-base) !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -106,8 +61,8 @@ body {
 
 a {
     color: var(--accent-blue);
-    transition: opacity 0.2s ease-in-out;
     text-decoration: none;
+    transition: opacity 0.2s ease-in-out;
 }
 
 a:hover {
@@ -121,9 +76,14 @@ h1, h2, h3, h4 {
     color: var(--text-main) !important;
 }
 
+h1 { font-size: var(--font-h1) !important; }
+h2 { font-size: var(--font-h2) !important; }
+h3 { font-size: var(--font-h3) !important; }
+
 p {
-    line-height: 1.7;
-    margin-bottom: 1.5em;
+    font-size: var(--font-base) !important;
+    line-height: 1.65 !important;
+    margin-bottom: 1.5em !important;
     color: var(--text-secondary) !important;
 }
 
@@ -135,6 +95,10 @@ p {
 /* ==========================================================================
    3. CABECERA, NAVEGACIÓN Y ESTRUCTURA
    ========================================================================== */
+
+#page, .site-content, .inside-article {
+    background: transparent !important;
+}
 
 .site-header,
 .main-navigation,
@@ -173,9 +137,17 @@ p {
     color: var(--accent-blue) !important;
 }
 
+/* Limpieza de contenedores de Sidebar */
+#left-sidebar,
+#left-sidebar .inside-left-sidebar,
+#left-sidebar .widget {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
 
 /* ==========================================================================
-   4. BOTÓN Y CONMUTADOR DE MODO OSCURO / CLARO
+   4. BOTÓN CONMUTADOR DE MODO OSCURO / CLARO
    ========================================================================== */
 
 #theme-toggle {
@@ -202,30 +174,15 @@ p {
     transform: scale(1.05);
 }
 
-/* Control dinámico de los iconos Sol/Luna */
-#theme-toggle .icon-sun {
-    display: inline-block !important;
-}
+#theme-toggle .icon-sun { display: inline-block !important; }
+#theme-toggle .icon-moon { display: none !important; }
 
-#theme-toggle .icon-moon {
-    display: none !important;
-}
-
-body.light-mode #theme-toggle .icon-sun {
-    display: none !important;
-}
-
-body.light-mode #theme-toggle .icon-moon {
-    display: inline-block !important;
-}
+body.light-mode #theme-toggle .icon-sun { display: none !important; }
+body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 
 /* ==========================================================================
    5. COMPONENTES DE UI (TARJETAS Y BOTONES)
    ========================================================================== */
-
-#page, .site-content, .inside-article {
-    background: transparent !important;
-}
 
 .entry-title {
     color: var(--text-main) !important;
@@ -252,7 +209,7 @@ body.light-mode #theme-toggle .icon-moon {
     margin-bottom: 0.5em !important;
 }
 
-/* Números y Tags de Métricas */
+/* Métricas numéricas */
 .metric-number,
 .metric-number2 {
     font-family: 'Fira Code', 'IBM Plex Mono', monospace !important;
@@ -262,7 +219,7 @@ body.light-mode #theme-toggle .icon-moon {
     margin-bottom: 0.2em !important;
 }
 
-/* Botones Apple CTA */
+/* Botones Apple / CTA */
 .apple-button, 
 .gb-button.ricardo-cta {
     background-color: var(--accent-blue) !important;
@@ -274,8 +231,8 @@ body.light-mode #theme-toggle .icon-moon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     border: none !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .apple-button:hover, 
@@ -286,7 +243,156 @@ body.light-mode #theme-toggle .icon-moon {
 }
 
 /* ==========================================================================
-   6. PIE DE PÁGINA (FOOTER)
+   6. ETIQUETAS Y BADGES (ESTÁTICAS Y DINÁMICAS DEL QUERY LOOP)
+   ========================================================================== */
+
+/* 6.1. Etiquetas Estáticas (.card-tags) */
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1.2rem;
+}
+
+.tag, 
+.badge, 
+.tech-tag {
+    display: inline-flex !important;
+    align-items: center;
+    font-family: 'Fira Code', 'IBM Plex Mono', monospace !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    color: var(--accent-blue) !important;
+    background-color: rgba(47, 129, 247, 0.12) !important;
+    border: 1px solid rgba(47, 129, 247, 0.3) !important;
+    border-radius: 20px !important;
+    padding: 4px 10px !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.tag:hover, 
+.badge:hover, 
+.tech-tag:hover {
+    background-color: rgba(47, 129, 247, 0.22) !important;
+    border-color: var(--accent-blue) !important;
+    transform: translateY(-1px);
+}
+
+body.light-mode .tag,
+body.light-mode .badge,
+body.light-mode .tech-tag {
+    background-color: rgba(0, 102, 204, 0.08) !important;
+    border-color: rgba(0, 102, 204, 0.25) !important;
+}
+
+/* 6.2. Etiquetas Dinámicas del Query Loop (Solución Universal con Alineación a Izquierda) */
+.dynamic-tags-container,
+.gb-terms,
+.card .dynamic-tags-container,
+.card .gb-terms,
+.card [class*="gb-terms"] {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+}
+
+/* Wrapper interno intermedio de GenerateBlocks */
+.dynamic-tags-container .gb-headline-text,
+.gb-terms .gb-headline-text {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+    width: 100% !important;
+    text-align: left !important;
+    margin-left: 0 !important;
+}
+
+.dynamic-tags-container li,
+.gb-terms li {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+/* Estilo agnóstico para elementos individuales (hijos directos, a, span) */
+.dynamic-tags-container > *,
+.dynamic-tags-container a,
+.dynamic-tags-container span,
+.gb-terms > *,
+.gb-terms a,
+.gb-terms span {
+    display: inline-flex !important;
+    align-items: center !important;
+    font-family: 'Fira Code', 'IBM Plex Mono', monospace !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    color: var(--accent-blue) !important;
+    background-color: rgba(47, 129, 247, 0.12) !important;
+    border: 1px solid rgba(47, 129, 247, 0.3) !important;
+    border-radius: 20px !important;
+    padding: 4px 10px !important;
+    line-height: 1 !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    transition: all 0.2s ease !important;
+    margin: 0 !important;
+}
+
+.dynamic-tags-container > *:hover,
+.dynamic-tags-container a:hover,
+.dynamic-tags-container span:hover,
+.gb-terms > *:hover,
+.gb-terms a:hover,
+.gb-terms span:hover {
+    background-color: rgba(47, 129, 247, 0.22) !important;
+    border-color: var(--accent-blue) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   7. REGLAS RESPONSIVAS PARA MÓVILES (< 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    #page {
+        padding-left: 1.2rem !important;
+        padding-right: 1.2rem !important;
+    }
+
+    .card {
+        padding: 1.2rem !important;
+        border-radius: 12px !important;
+    }
+
+    .hero-buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 100%;
+    }
+
+    .apple-button, 
+    .gb-button.ricardo-cta {
+        width: 100% !important;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   8. PIE DE PÁGINA (FOOTER)
    ========================================================================== */
 
 .site-footer,
