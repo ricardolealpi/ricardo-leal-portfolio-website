@@ -363,33 +363,68 @@ body.light-mode .tech-tag {
 /* ==========================================================================
    7. REGLAS RESPONSIVAS PARA MÓVILES (< 768px)
    ========================================================================== */
-
+/* ==========================================================================
+   BARRA LATERAL HORIZONTAL COMPACTA EN MÓVILES (< 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
-    #page {
-        padding-left: 1.2rem !important;
-        padding-right: 1.2rem !important;
+    /* 1. Colocar el bloque completo de la barra lateral en la parte superior */
+    #content.site-content {
+        display: flex !important;
+        flex-direction: column !important;
     }
 
-    .card {
-        padding: 1.2rem !important;
-        border-radius: 12px !important;
-    }
-
-    .hero-buttons-container {
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-        width: 100%;
-    }
-
-    .apple-button, 
-    .gb-button.ricardo-cta {
+    #left-sidebar {
+        order: -1 !important;
         width: 100% !important;
-        text-align: center;
-        justify-content: center;
+        flex: 0 0 100% !important;
+        position: relative !important;
+        top: 0 !important;
+        margin-bottom: 1.5rem !important;
+        padding-bottom: 0.8rem !important;
+        border-bottom: 1px solid var(--border-color) !important;
+    }
+
+    /* 2. Alineación HORIZONTAL de los widgets (Menú e Iconos en la misma fila) */
+    #left-sidebar .inside-left-sidebar {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    /* 3. Convertir la lista del menú de VERTICAL a HORIZONTAL */
+    #left-sidebar .widget_nav_menu ul,
+    #left-sidebar .main-navigation ul {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+    }
+
+    #left-sidebar .widget_nav_menu ul li,
+    #left-sidebar .main-navigation ul li {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #left-sidebar .widget_nav_menu ul li a,
+    #left-sidebar .main-navigation ul li a {
+        padding: 4px 8px !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* 4. Contenido principal debajo */
+    #primary.content-area {
+        order: 2 !important;
+        width: 100% !important;
+        padding-left: 0 !important;
     }
 }
-
 /* ==========================================================================
    8. PIE DE PÁGINA (FOOTER)
    ========================================================================== */
