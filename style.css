@@ -352,13 +352,13 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     color: var(--accent-orange) !important;
     background-color: rgba(210, 153, 34, 0.12) !important;
     border-color: rgba(210, 153, 34, 0.3) !important;
-}
-/* ==========================================================================
-   6.2. ETIQUETAS DINÁMICAS Y LISTAS (Solución para ul > li > a)
+}/* ==========================================================================
+   6.2. ETIQUETAS DINÁMICAS Y LISTAS (Estructura Base y Azul por Defecto)
    ========================================================================== */
 
 .dynamic-tags-container,
 .wp-block-categories-list,
+.wp-block-list.dynamic-tags-container,
 .gb-terms,
 .card .dynamic-tags-container,
 .card .wp-block-categories-list {
@@ -376,20 +376,19 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     width: 100% !important;
 }
 
-/* 1. Limpiar el contenedor <li> para que NO tenga bordes ni fondo */
-.dynamic-tags-container li,
-.wp-block-categories-list li,
-.gb-terms li {
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none !important;
+/* 1. Resetear <li> cuando contiene un enlace <a> o un <span> interno */
+.dynamic-tags-container li:has(a),
+.dynamic-tags-container li:has(span),
+.wp-block-categories-list li:has(a),
+.wp-block-categories-list li:has(span) {
     background: transparent !important;
     border: none !important;
-    box-shadow: none !important;
-    display: inline-flex !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
-/* 2. Aplicar el diseño de cápsula ÚNICAMENTE al enlace <a> o <span> interno */
+/* 2. Estilo base (Azul) para elementos de etiqueta */
+.dynamic-tags-container li:not(:has(a)):not(:has(span)),
 .dynamic-tags-container a,
 .dynamic-tags-container span,
 .wp-block-categories-list a,
@@ -413,12 +412,56 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     margin: 0 !important;
 }
 
-/* 3. Efecto Hover en los enlaces */
+/* 3. Hover Base */
+.dynamic-tags-container li:not(:has(a)):not(:has(span)):hover,
 .dynamic-tags-container a:hover,
-.wp-block-categories-list a:hover,
-.gb-terms a:hover {
+.dynamic-tags-container span:hover,
+.wp-block-categories-list a:hover {
     filter: brightness(1.15) !important;
     transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   6.3. VARIANTES DE COLOR CON MÁXIMA PRIORIDAD (OVERRIDE UNIVERSAL)
+   ========================================================================== */
+
+/* Píldoras Púrpuras (DevOps, Automatización, PowerShell, GitHub) */
+.tag-purple, .badge-purple,
+.tag-purple a, .tag-purple span, .tag-purple li,
+.dynamic-tags-container .tag-purple,
+.dynamic-tags-container li.tag-purple,
+.dynamic-tags-container.tag-purple li,
+.wp-block-categories-list .tag-purple,
+.wp-block-categories-list .tag-purple a {
+    color: var(--accent-purple) !important;
+    background-color: var(--tag-purple-bg) !important;
+    border-color: var(--tag-purple-border) !important;
+}
+
+/* Píldoras Verdes (Certificaciones, Success, Status) */
+.tag-green, .badge-green,
+.tag-green a, .tag-green span, .tag-green li,
+.dynamic-tags-container .tag-green,
+.dynamic-tags-container li.tag-green,
+.dynamic-tags-container.tag-green li,
+.wp-block-categories-list .tag-green,
+.wp-block-categories-list .tag-green a {
+    color: var(--accent-green) !important;
+    background-color: var(--tag-green-bg) !important;
+    border-color: var(--tag-green-border) !important;
+}
+
+/* Píldoras Naranjas (En preparación, Metas en curso) */
+.tag-orange, .badge-orange,
+.tag-orange a, .tag-orange span, .tag-orange li,
+.dynamic-tags-container .tag-orange,
+.dynamic-tags-container li.tag-orange,
+.dynamic-tags-container.tag-orange li,
+.wp-block-categories-list .tag-orange,
+.wp-block-categories-list .tag-orange a {
+    color: var(--accent-orange) !important;
+    background-color: rgba(210, 153, 34, 0.12) !important;
+    border-color: rgba(210, 153, 34, 0.3) !important;
 }
 /*
 ==========================================================================
