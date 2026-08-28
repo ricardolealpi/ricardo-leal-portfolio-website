@@ -12,6 +12,11 @@ function ricardo_leal_enqueue_styles() {
     wp_enqueue_style( 'child-style', get_stylesheet_uri(), array( 'parent-style' ), '1.0.0' );
 }
 
+// Cambiar el texto del Copyright en el pie de página de GeneratePress
+add_filter( 'generate_copyright', function() {
+    return '&copy; ' . date('Y') . ' Ricardo Leal Piñeres. Todos los derechos reservados.';
+} );
+
 // Script para el Toggle de Modo Oscuro/Claro
 add_action('wp_footer', function() {
     ?>

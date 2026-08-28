@@ -388,7 +388,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 .dynamic-tags-container li,
 .gb-terms li {
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 4px 10px !important;
     list-style: none !important;
 }
 
