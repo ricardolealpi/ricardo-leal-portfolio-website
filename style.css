@@ -55,7 +55,7 @@ body.light-mode {
     --border-color: rgba(31, 35, 40, 0.15);
     --selection-bg: rgba(9, 105, 218, 0.2);
 
-    /* Acentos Funcionales (Ajustados para legibilidad sobre fondo claro) */
+    /* Acentos Funcionales */
     --accent-blue: #0969da;
     --accent-green: #1a7f37;
     --accent-purple: #8250df;
@@ -121,57 +121,83 @@ p {
 }
 
 /* ==========================================================================
-   3. CABECERA, NAVEGACIÓN Y ESTRUCTURA
+   3. ESTRUCTURA, NAVEGACIÓN Y BARRA LATERAL (ESCRITORIO)
    ========================================================================== */
 
 #page, .site-content, .inside-article {
     background: transparent !important;
 }
 
-.site-header,
-.main-navigation,
-.main-navigation ul ul,
-.inside-navigation,
-.navigation-clone {
-    background-color: var(--header-bg) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    transition: background-color 0.3s ease;
-}
-
+/* Ocultar la cabecera superior por completo */
 .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
+    display: none !important;
 }
 
-.site-title a, 
-.site-description {
-    color: var(--text-main) !important;
-    font-weight: 700;
+/* Habilitar viewport para sticky scroll */
+#content.site-content {
+    overflow: visible !important;
 }
 
-.main-navigation .main-nav ul li a,
-.menu-toggle {
-    color: var(--text-main) !important;
-    font-weight: 500;
-    transition: color 0.2s ease, background-color 0.2s ease;
+/* Estructura y comportamiento Sticky de Barra Lateral Izquierda */
+#left-sidebar {
+    align-self: flex-start !important;
+    position: sticky !important;
+    top: 90px !important;
+    z-index: 99 !important;
+    width: 230px !important;
+    flex: 0 0 230px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
-.main-navigation .main-nav ul li:hover > a,
-.main-navigation .main-nav ul li.current-menu-item > a {
-    background-color: var(--card-bg) !important;
-    color: var(--accent-blue) !important;
+#left-sidebar .inside-left-sidebar {
+    background: transparent !important;
 }
 
-/* Limpieza de contenedores de Sidebar */
-#left-sidebar,
-#left-sidebar .inside-left-sidebar,
+#primary.content-area {
+    width: calc(100% - 230px) !important;
+    flex-grow: 1 !important;
+    padding-left: 2rem !important;
+}
+
+/* Espaciado de Widgets en el Menú Lateral */
 #left-sidebar .widget {
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
+    margin: 15px auto !important;
+    padding: 0 !important;
+}
+
+#left-sidebar .widget_nav_menu ul,
+#left-sidebar .main-navigation ul {
+    margin: 15px !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+#left-sidebar .widget_nav_menu ul li,
+#left-sidebar .main-navigation ul li {
+    margin-bottom: 1rem !important;
+    padding: 0 !important;
+}
+
+#left-sidebar .widget_nav_menu ul li a,
+#left-sidebar .main-navigation ul li a {
+    color: var(--text-main) !important;
+    font-weight: 500;
+    padding: 4px 0 !important;
+    line-height: 1.2 !important;
+    display: inline-block !important;
+    transition: color 0.2s ease;
+}
+
+#left-sidebar .widget_nav_menu ul li:hover > a,
+#left-sidebar .main-navigation ul li:hover > a,
+#left-sidebar .widget_nav_menu ul li.current-menu-item > a,
+#left-sidebar .main-navigation ul li.current-menu-item > a {
+    color: var(--accent-blue) !important;
 }
 
 /* ==========================================================================
@@ -181,11 +207,13 @@ p {
 #theme-toggle {
     background-color: var(--card-bg) !important;
     border: 1px solid var(--border-color) !important;
+    border-left: 4px solid var(--border-color) !important;
     color: var(--text-main) !important;
     width: 40px !important;
     height: 40px !important;
     border-radius: 10px !important;
     padding: 0 !important;
+    margin-top: 1.3rem !important;
     cursor: pointer;
     font-size: 1.1rem;
     display: inline-flex;
@@ -402,37 +430,62 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
    ========================================================================== */
 
 @media (max-width: 768px) {
+    /* 1. Anular por completo el comportamiento sticky / fijo de la barra lateral */
+    #left-sidebar,
+    #left-sidebar .inside-left-sidebar,
+    #left-sidebar .widget,
+    #theme-toggle {
+        position: static !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        z-index: auto !important;
+        transform: none !important;
+        margin-top: 0 !important;
+    }
+
+    #left-sidebar .widget {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 2. Reordenar el contenedor global en columna */
     #content.site-content {
         display: flex !important;
         flex-direction: column !important;
+        overflow: visible !important;
     }
 
+    /* 3. Colocar la barra lateral en la parte superior sin fijar */
     #left-sidebar {
         order: -1 !important;
         width: 100% !important;
         flex: 0 0 100% !important;
-        position: relative !important;
-        top: 0 !important;
-        margin-bottom: 1.5rem !important;
+        align-self: stretch !important;
+        margin-bottom: 1.2rem !important;
         padding-bottom: 0.8rem !important;
         border-bottom: 1px solid var(--border-color) !important;
     }
 
+    /* 4. Distribuir utilidades a la izquierda/centro y menú a la derecha */
     #left-sidebar .inside-left-sidebar {
         display: flex !important;
         flex-direction: row !important;
-        flex-wrap: wrap !important;
+        flex-wrap: nowrap !important;
         justify-content: space-between !important;
         align-items: center !important;
-        gap: 12px !important;
+        gap: 10px !important;
+        width: 100% !important;
     }
 
+    /* 5. Convertir la lista del menú a fila horizontal compacta */
     #left-sidebar .widget_nav_menu ul,
     #left-sidebar .main-navigation ul {
         display: flex !important;
         flex-direction: row !important;
-        flex-wrap: wrap !important;
-        gap: 12px !important;
+        align-items: center !important;
+        gap: 10px !important;
         margin: 0 !important;
         padding: 0 !important;
         list-style: none !important;
@@ -446,10 +499,13 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 
     #left-sidebar .widget_nav_menu ul li a,
     #left-sidebar .main-navigation ul li a {
-        padding: 4px 8px !important;
+        padding: 4px 6px !important;
         font-size: 0.85rem !important;
+        line-height: 1.2 !important;
+        display: inline-block !important;
     }
 
+    /* 6. Asegurar ancho completo en el área de contenido principal */
     #primary.content-area {
         order: 2 !important;
         width: 100% !important;
