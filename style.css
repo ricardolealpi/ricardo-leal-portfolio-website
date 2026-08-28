@@ -353,13 +353,15 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     background-color: rgba(210, 153, 34, 0.12) !important;
     border-color: rgba(210, 153, 34, 0.3) !important;
 }
+/* ==========================================================================
+   6.2. ETIQUETAS DINÁMICAS Y LISTAS (Solución para ul > li > a)
+   ========================================================================== */
 
-/* 6.2. Etiquetas Dinámicas del Query Loop (Solución Universal) */
 .dynamic-tags-container,
+.wp-block-categories-list,
 .gb-terms,
 .card .dynamic-tags-container,
-.card .gb-terms,
-.card [class*="gb-terms"] {
+.card .wp-block-categories-list {
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 6px !important;
@@ -374,28 +376,24 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     width: 100% !important;
 }
 
-.dynamic-tags-container .gb-headline-text,
-.gb-terms .gb-headline-text {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: flex-start !important;
-    gap: 6px !important;
-    width: 100% !important;
-    text-align: left !important;
-    margin-left: 0 !important;
-}
-
+/* 1. Limpiar el contenedor <li> para que NO tenga bordes ni fondo */
 .dynamic-tags-container li,
+.wp-block-categories-list li,
 .gb-terms li {
     margin: 0 !important;
-    padding: 4px 10px !important;
+    padding: 0 !important;
     list-style: none !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
 }
 
-.dynamic-tags-container > *,
+/* 2. Aplicar el diseño de cápsula ÚNICAMENTE al enlace <a> o <span> interno */
 .dynamic-tags-container a,
 .dynamic-tags-container span,
-.gb-terms > *,
+.wp-block-categories-list a,
+.wp-block-categories-list span,
 .gb-terms a,
 .gb-terms span {
     display: inline-flex !important;
@@ -415,17 +413,15 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     margin: 0 !important;
 }
 
-.dynamic-tags-container > *:hover,
+/* 3. Efecto Hover en los enlaces */
 .dynamic-tags-container a:hover,
-.dynamic-tags-container span:hover,
-.gb-terms > *:hover,
-.gb-terms a:hover,
-.gb-terms span:hover {
+.wp-block-categories-list a:hover,
+.gb-terms a:hover {
     filter: brightness(1.15) !important;
     transform: translateY(-1px) !important;
 }
-
-/* ==========================================================================
+/*
+==========================================================================
    7. REGLAS RESPONSIVAS PARA MÓVILES (< 768px)
    ========================================================================== */
 
