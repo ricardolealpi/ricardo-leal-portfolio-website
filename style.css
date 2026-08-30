@@ -4,11 +4,11 @@
  Author:       Ricardo Leal Piñeres
  Author URI:   https://ricardoleal.cloud
  Template:     generatepress
- Version:      1.1.2
+ Version:      1.1.4
 */
 
 /* ==========================================================================
-   1. VARIABLES DEL SISTEMA (Tipografía Fluida y Paleta Multicapa)
+   1. VARIABLES DEL SISTEMA (Centralización Completa de Colores y Tipografía)
    ========================================================================== */
 
 :root {
@@ -19,7 +19,7 @@
     --font-h2:   clamp(1.4rem, 1.25rem + 0.75vw, 1.75rem);  /* Títulos de sección */
     --font-h1:   clamp(1.8rem, 1.5rem + 1.5vw, 2.5rem);     /* Título principal Hero */
 
-    /* Modo Oscuro (Default) - Estilo GitHub / Cloud Console */
+    /* Modo Oscuro (Default) - Estilo GitHub Console */
     --bg-color: #0d1117;                 /* Gris carbón técnico */
     --header-bg: rgba(13, 17, 23, 0.85);  /* Transparencia adaptada */
     --text-main: #f0f6fc;                /* Blanco suave de baja fatiga */
@@ -29,19 +29,28 @@
     --border-color: rgba(240, 246, 252, 0.1);
     --selection-bg: rgba(47, 129, 247, 0.3);
 
-    /* Acentos Funcionales */
+    /* Acentos Funcionales (Legibilidad WCAG AA) */
     --accent-blue: #388bfd;              /* Primario: Enlaces y CTA Principal */
     --accent-green: #56d364;             /* Secundario: Certificaciones / Status Online */
     --accent-purple: #bc8cff;            /* Secundario: DevOps / Automatización / Scripts */
     --accent-orange: #d29922;            /* Secundario: En Preparación / Warning */
 
     /* Transparencias para Badges y Píldoras */
-    --tag-blue-bg: rgba(47, 129, 247, 0.12);
-    --tag-blue-border: rgba(47, 129, 247, 0.3);
-    --tag-green-bg: rgba(63, 185, 80, 0.12);
-    --tag-green-border: rgba(63, 185, 80, 0.3);
-    --tag-purple-bg: rgba(163, 113, 247, 0.12);
-    --tag-purple-border: rgba(163, 113, 247, 0.3);
+    --tag-blue-bg: rgba(56, 139, 253, 0.12);
+    --tag-blue-border: rgba(56, 139, 253, 0.3);
+
+    --tag-green-bg: rgba(86, 211, 100, 0.12);
+    --tag-green-border: rgba(86, 211, 100, 0.3);
+
+    --tag-purple-bg: rgba(188, 140, 255, 0.12);
+    --tag-purple-border: rgba(188, 140, 255, 0.3);
+
+    --tag-orange-bg: rgba(210, 153, 34, 0.12);
+    --tag-orange-border: rgba(210, 153, 34, 0.3);
+
+    /* Botones CTA */
+    --btn-cta-text: #ffffff;
+    --btn-cta-shadow: rgba(56, 139, 253, 0.35);
 }
 
 /* Modo Claro Override (High-Contrast Tech Clean) */
@@ -55,7 +64,7 @@ body.light-mode {
     --border-color: rgba(31, 35, 40, 0.15);
     --selection-bg: rgba(9, 105, 218, 0.2);
 
-    /* Acentos Funcionales */
+    /* Acentos Funcionales (Legibilidad sobre blanco) */
     --accent-blue: #0969da;
     --accent-green: #1a7f37;
     --accent-purple: #8250df;
@@ -64,10 +73,19 @@ body.light-mode {
     /* Transparencias para Badges y Píldoras */
     --tag-blue-bg: rgba(9, 105, 218, 0.08);
     --tag-blue-border: rgba(9, 105, 218, 0.25);
+
     --tag-green-bg: rgba(26, 127, 55, 0.08);
     --tag-green-border: rgba(26, 127, 55, 0.25);
+
     --tag-purple-bg: rgba(130, 80, 223, 0.08);
     --tag-purple-border: rgba(130, 80, 223, 0.25);
+
+    --tag-orange-bg: rgba(191, 135, 0, 0.08);
+    --tag-orange-border: rgba(191, 135, 0, 0.25);
+
+    /* Botones CTA */
+    --btn-cta-text: #ffffff;
+    --btn-cta-shadow: rgba(9, 105, 218, 0.3);
 }
 
 /* ==========================================================================
@@ -254,7 +272,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 
 .card:hover {
     transform: translateY(-8px);
-    border-color: rgba(47, 129, 247, 0.3) !important;
+    border-color: var(--tag-blue-border) !important;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
@@ -279,7 +297,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 .apple-button, 
 .gb-button.ricardo-cta {
     background-color: var(--accent-blue) !important;
-    color: #ffffff !important;
+    color: var(--btn-cta-text) !important;
     border-radius: 980px !important;
     padding: 12px 28px !important;
     font-weight: 600 !important;
@@ -295,7 +313,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 .gb-button.ricardo-cta:hover {
     transform: scale(1.03);
     filter: brightness(1.1);
-    box-shadow: 0 8px 20px rgba(0, 113, 227, 0.4);
+    box-shadow: 0 8px 20px var(--btn-cta-shadow);
 }
 
 /* ==========================================================================
@@ -335,7 +353,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     transform: translateY(-1px);
 }
 
-/* Variantes de Color para Píldoras */
+/* Variantes de Color para Píldoras Estáticas */
 .tag-green, .badge-green {
     color: var(--accent-green) !important;
     background-color: var(--tag-green-bg) !important;
@@ -350,9 +368,11 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 
 .tag-orange, .badge-orange {
     color: var(--accent-orange) !important;
-    background-color: rgba(210, 153, 34, 0.12) !important;
-    border-color: rgba(210, 153, 34, 0.3) !important;
-}/* ==========================================================================
+    background-color: var(--tag-orange-bg) !important;
+    border-color: var(--tag-orange-border) !important;
+}
+
+/* ==========================================================================
    6.2. ETIQUETAS DINÁMICAS Y LISTAS (Estructura Base y Azul por Defecto)
    ========================================================================== */
 
@@ -460,11 +480,11 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 .wp-block-categories-list .tag-orange,
 .wp-block-categories-list .tag-orange a {
     color: var(--accent-orange) !important;
-    background-color: rgba(210, 153, 34, 0.12) !important;
-    border-color: rgba(210, 153, 34, 0.3) !important;
+    background-color: var(--tag-orange-bg) !important;
+    border-color: var(--tag-orange-border) !important;
 }
-/*
-==========================================================================
+
+/* ==========================================================================
    7. REGLAS RESPONSIVAS PARA MÓVILES (< 768px)
    ========================================================================== */
 
