@@ -30,9 +30,9 @@
     --selection-bg: rgba(47, 129, 247, 0.3);
 
     /* Acentos Funcionales */
-    --accent-blue: #2f81f7;              /* Primario: Enlaces y CTA Principal */
-    --accent-green: #3fb950;             /* Secundario: Certificaciones / Status Online */
-    --accent-purple: #a371f7;            /* Secundario: DevOps / Automatización / Scripts */
+    --accent-blue: #388bfd;              /* Primario: Enlaces y CTA Principal */
+    --accent-green: #56d364;             /* Secundario: Certificaciones / Status Online */
+    --accent-purple: #bc8cff;            /* Secundario: DevOps / Automatización / Scripts */
     --accent-orange: #d29922;            /* Secundario: En Preparación / Warning */
 
     /* Transparencias para Badges y Píldoras */
