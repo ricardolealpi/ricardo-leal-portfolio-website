@@ -11,28 +11,8 @@ function ricardo_leal_enqueue_styles() {
     // Carga el estilo de este tema hijo
     wp_enqueue_style( 'child-style', get_stylesheet_uri(), array( 'parent-style' ), '1.0.0' );
 }
-/* ==========================================================================
-   OCULTAR METADATOS Y COMENTARIOS SOLO EN CATEGORÍA PORTAFOLIO
-   ========================================================================== */
 
-/* Ocultar autor/email de la cabecera únicamente en Portafolio */
-body.single.category-portafolio .entry-header .byline,
-body.single.category-portafolio .entry-header .author,
-body.single.category-portafolio .entry-meta .byline {
-    display: none !important;
-}
 
-/* Ocultar metadatos inferiores (categorías, tags y navegación entre posts) */
-body.single.category-portafolio footer.entry-meta,
-body.single.category-portafolio .post-navigation {
-    display: none !important;
-}
-
-/* Ocultar caja de comentarios únicamente en Portafolio */
-body.single.category-portafolio #comments,
-body.single.category-portafolio .comments-area {
-    display: none !important;
-}
 
 // Cambiar el texto del Copyright en el pie de página de GeneratePress
 add_filter( 'generate_copyright', function() {
