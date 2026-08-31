@@ -483,7 +483,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     background-color: var(--tag-orange-bg) !important;
     border-color: var(--tag-orange-border) !important;
 }
-
 /* ==========================================================================
    7. REGLAS RESPONSIVAS PARA MÓVILES (< 768px)
    ========================================================================== */
@@ -538,9 +537,29 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         width: 100% !important;
     }
 
-    /* 5. Convertir la lista del menú a fila horizontal compacta */
+    /* 5. Estilos de visibilidad para Menú Hamburguesa e Icono de Cierre (X) */
+    .menu-toggle,
+    .menu-toggle:hover,
+    .menu-toggle:focus,
+    .main-navigation .menu-toggle,
+    .main-navigation.toggled .menu-toggle,
+    .mobile-menu {
+        color: var(--text-main) !important;
+        background: transparent !important;
+    }
+
+    .menu-toggle .gp-icon,
+    .menu-toggle .gp-icon svg,
+    .mobile-menu svg,
+    .main-navigation .menu-toggle .gp-icon svg {
+        fill: var(--text-main) !important;
+        color: var(--text-main) !important;
+    }
+
+    /* 6. Convertir la lista del menú a fila horizontal compacta / desplegable accesible */
     #left-sidebar .widget_nav_menu ul,
-    #left-sidebar .main-navigation ul {
+    #left-sidebar .main-navigation ul,
+    .main-navigation.toggled .main-nav ul {
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
@@ -548,6 +567,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         margin: 0 !important;
         padding: 0 !important;
         list-style: none !important;
+        background: transparent !important;
     }
 
     #left-sidebar .widget_nav_menu ul li,
@@ -557,32 +577,25 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     }
 
     #left-sidebar .widget_nav_menu ul li a,
-    #left-sidebar .main-navigation ul li a {
+    #left-sidebar .main-navigation ul li a,
+    .main-navigation.toggled .main-nav ul li a {
+        color: var(--text-main) !important;
         padding: 4px 6px !important;
         font-size: 0.85rem !important;
         line-height: 1.2 !important;
         display: inline-block !important;
     }
 
-    /* 6. Asegurar ancho completo en el área de contenido principal */
+    #left-sidebar .widget_nav_menu ul li a:hover,
+    #left-sidebar .main-navigation ul li a:hover,
+    .main-navigation.toggled .main-nav ul li a:hover {
+        color: var(--accent-blue) !important;
+    }
+
+    /* 7. Asegurar ancho completo en el área de contenido principal */
     #primary.content-area {
         order: 2 !important;
         width: 100% !important;
         padding-left: 0 !important;
     }
-}
-
-/* ==========================================================================
-   8. PIE DE PÁGINA (FOOTER)
-   ========================================================================== */
-
-.site-footer,
-.site-info {
-    background-color: var(--bg-color) !important;
-    color: var(--text-secondary) !important;
-    border-top: 1px solid var(--border-color) !important;
-}
-
-.site-footer a {
-    color: var(--text-main) !important;
 }
