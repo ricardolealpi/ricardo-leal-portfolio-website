@@ -11,30 +11,28 @@ function ricardo_leal_enqueue_styles() {
     // Carga el estilo de este tema hijo
     wp_enqueue_style( 'child-style', get_stylesheet_uri(), array( 'parent-style' ), '1.0.0' );
 }
+/* ==========================================================================
+   OCULTAR METADATOS Y COMENTARIOS SOLO EN CATEGORÍA PORTAFOLIO
+   ========================================================================== */
 
-// 1. Quitar autor/correo SOLO en entradas de la categoría "portafolio"
-add_filter( 'generate_header_entry_meta_items', function( $items ) {
-    if ( is_single() && in_category( 'portafolio' ) ) {
-        return array( 'date' ); // Mantiene únicamente la fecha en el portafolio
-    }
-    return $items; // El blog conserva autor, fecha, etc.
-} );
+/* Ocultar autor/email de la cabecera únicamente en Portafolio */
+body.single.category-portafolio .entry-header .byline,
+body.single.category-portafolio .entry-header .author,
+body.single.category-portafolio .entry-meta .byline {
+    display: none !important;
+}
 
-// 2. Eliminar categorías y etiquetas al final SOLO en el portafolio
-add_filter( 'generate_footer_entry_meta_items', function( $items ) {
-    if ( is_single() && in_category( 'portafolio' ) ) {
-        return array();
-    }
-    return $items;
-} );
+/* Ocultar metadatos inferiores (categorías, tags y navegación entre posts) */
+body.single.category-portafolio footer.entry-meta,
+body.single.category-portafolio .post-navigation {
+    display: none !important;
+}
 
-// 3. Eliminar navegación Siguiente / Anterior SOLO en el portafolio
-add_filter( 'generate_show_post_navigation', function( $show ) {
-    if ( is_single() && in_category( 'portafolio' ) ) {
-        return false;
-    }
-    return $show;
-} );
+/* Ocultar caja de comentarios únicamente en Portafolio */
+body.single.category-portafolio #comments,
+body.single.category-portafolio .comments-area {
+    display: none !important;
+}
 
 // Cambiar el texto del Copyright en el pie de página de GeneratePress
 add_filter( 'generate_copyright', function() {

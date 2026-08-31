@@ -536,26 +536,47 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         gap: 10px !important;
         width: 100% !important;
     }
-
-    /* 5. Estilos de visibilidad para Menú Hamburguesa e Icono de Cierre (X) */
+/* Botón Hamburguesa, Texto "Menú", e Icono de Cierre (X) */
     .menu-toggle,
     .menu-toggle:hover,
     .menu-toggle:focus,
     .main-navigation .menu-toggle,
     .main-navigation.toggled .menu-toggle,
-    .mobile-menu {
+    .mobile-menu-control-wrapper .menu-toggle,
+    button.menu-toggle {
         color: var(--text-main) !important;
         background: transparent !important;
     }
 
+    /* SVG de las 3 líneas y la X de salida */
     .menu-toggle .gp-icon,
     .menu-toggle .gp-icon svg,
     .mobile-menu svg,
-    .main-navigation .menu-toggle .gp-icon svg {
+    .main-navigation .menu-toggle .gp-icon svg,
+    .main-navigation.toggled .menu-toggle .gp-icon svg,
+    .main-navigation.toggled .menu-toggle .gp-icon svg path {
         fill: var(--text-main) !important;
         color: var(--text-main) !important;
     }
 
+    /* Enlaces dentro del Menú Móvil */
+    .main-navigation .main-nav ul li a,
+    .main-navigation.toggled .main-nav ul li a,
+    #left-sidebar .widget_nav_menu ul li a,
+    #left-sidebar .main-navigation ul li a {
+        color: var(--text-main) !important;
+    }
+
+    /* Hover en los Enlaces Móviles */
+    .main-navigation .main-nav ul li a:hover,
+    .main-navigation.toggled .main-nav ul li a:hover,
+    #left-sidebar .widget_nav_menu ul li a:hover,
+    #left-sidebar .main-navigation ul li a:hover,
+    #left-sidebar .widget_nav_menu ul li.current-menu-item > a,
+    #left-sidebar .main-navigation ul li.current-menu-item > a {
+        color: var(--accent-blue) !important;
+    }
+    
     /* 6. Convertir la lista del menú a fila horizontal compacta / desplegable accesible */
     #left-sidebar .widget_nav_menu ul,
     #left-sidebar .main-navigation ul,
