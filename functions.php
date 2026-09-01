@@ -16,27 +16,39 @@ function ricardo_leal_enqueue_styles() {
     );
 }
 
-// 2. Shortcode: [github_stars repo="usuario/repositorio"]
-add_shortcode( 'github_stars', function( $atts ) {
-    $atts = shortcode_atts( array(
-        'repo' => '',
-    ), $atts );
-
-    if ( empty( $atts['repo'] ) ) {
+// Shortcode 100% automático: [github_stars]
+add_shortcode( 'github_stars', function() {
+    // 1. Obtener el ID de la entrada actual en el Query Loop
+    $post_id = get_the_ID();
+    if ( ! $post_id ) {
         return '';
     }
 
-    $repo_clean    = sanitize_text_field( $atts['repo'] );
-    $transient_key = 'gh_stars_' . md5( $repo_clean );
+    // 2. Leer la URL guardada en el campo personalizado 'github_url'
+    $github_url = get_post_meta( $post_id, 'github_url', true );
+    if ( empty( $github_url ) ) {
+        return '';
+    }
+
+    // 3. Extraer automáticamente 'usuario/repositorio' de la URL (ej: ricardolealpi/windows-server-automation)
+    $path  = trim( parse_url( $github_url, PHP_URL_PATH ), '/' );
+    $parts = explode( '/', $path );
+
+    if ( count( $parts ) < 2 ) {
+        return '';
+    }
+
+    $repo          = sanitize_text_field( $parts[0] . '/' . $parts[1] );
+    $transient_key = 'gh_stars_' . md5( $repo );
     $stars         = get_transient( $transient_key );
 
+    // 4. Consultar API si no hay caché guardada
     if ( false === $stars ) {
-        $response = wp_remote_get( 'https://api.github.com/repos/' . $repo_clean, array(
+        $response = wp_remote_get( 'https://api.github.com/repos/' . $repo, array(
             'headers' => array( 'User-Agent' => 'WordPress-Portfolio' ),
             'timeout' => 5,
         ) );
 
-        // Validar que no hay error de conexión Y que el código de respuesta HTTP sea 200 OK
         if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
             return '';
         }
@@ -44,17 +56,16 @@ add_shortcode( 'github_stars', function( $atts ) {
         $body  = json_decode( wp_remote_retrieve_body( $response ), true );
         $stars = isset( $body['stargazers_count'] ) ? intval( $body['stargazers_count'] ) : 0;
 
-        // Guardar en caché por 12 horas
         set_transient( $transient_key, $stars, 12 * HOUR_IN_SECONDS );
     }
 
+    // 5. Si tiene 0 estrellas o no existe el repo, no renderiza nada
     if ( $stars <= 0 ) {
         return '';
     }
 
-    return esc_html( $stars ) . ' ★';
+    return '<span class="card-stars"><span>' . esc_html( $stars ) . '</span> ★</span>';
 } );
-
 // 3. Cambiar texto del Copyright en el pie de página
 add_filter( 'generate_copyright', function() {
     return '&copy; ' . date('Y') . ' Ricardo Leal Piñeres. Todos los derechos reservados.';
