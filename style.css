@@ -620,3 +620,25 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         padding-left: 0 !important;
     }
 }
+/* ==========================================================================
+   LIMPIEZA DE METADATOS Y COMENTARIOS EN PORTAFOLIO
+   ========================================================================== */
+
+/* Ocultar autor/correo de la cabecera */
+body.single .entry-header .byline,
+body.single .entry-header .author,
+body.single .entry-meta .byline {
+    display: none !important;
+}
+
+/* Ocultar metadatos inferiores (categorías, etiquetas y navegación entre posts) */
+body.single footer.entry-meta,
+body.single .post-navigation {
+    display: none !important;
+}
+
+/* Ocultar la caja de comentarios por completo */
+body.single #comments,
+body.single .comments-area {
+    display: none !important;
+}
