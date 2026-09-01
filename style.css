@@ -137,6 +137,14 @@ p {
     font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
     font-size: 0.9em;
 }
+/* ==========================================================================
+   FIX HOVER ENLACES GLOBALES (EXCLUYENDO MENÚ DE NAVEGACIÓN)
+   ========================================================================== */
+
+/* Aplica color visible al hacer hover en enlaces del contenido, tarjetas y footer */
+body a:not(.main-navigation a):not(.menu-toggle):hover {
+    color: var(--accent-blue) !important;
+}
 
 /* ==========================================================================
    3. ESTRUCTURA, NAVEGACIÓN Y BARRA LATERAL (ESCRITORIO)
