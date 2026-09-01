@@ -16,9 +16,14 @@ function ricardo_leal_enqueue_styles() {
     );
 }
 
-// 2. Shortcode 100% automático: [github_stars]
+// Shortcode compatible con Query Loop de GenerateBlocks: [github_stars]
 add_shortcode( 'github_stars', function() {
+    global $post;
     $post_id = get_the_ID();
+    if ( isset( $post->ID ) && $post->ID ) {
+        $post_id = $post->ID;
+    }
+
     if ( ! $post_id ) {
         return '';
     }
@@ -39,7 +44,6 @@ add_shortcode( 'github_stars', function() {
     $transient_key = 'gh_stars_' . md5( $repo );
     $stars         = get_transient( $transient_key );
 
-    // Consultar API de GitHub si no existe caché
     if ( false === $stars ) {
         $response = wp_remote_get( 'https://api.github.com/repos/' . $repo, array(
             'headers' => array( 'User-Agent' => 'WordPress-Portfolio' ),
@@ -63,7 +67,7 @@ add_shortcode( 'github_stars', function() {
     return '<span class="card-stars"><span>' . esc_html( $stars ) . '</span> ★</span>';
 } );
 
-// 3. Borrar la caché de estrellas automáticamente al actualizar la entrada
+// Borrar la caché de estrellas al actualizar la entrada
 add_action( 'save_post', function( $post_id ) {
     $github_url = get_post_meta( $post_id, 'github_url', true );
     if ( $github_url ) {
