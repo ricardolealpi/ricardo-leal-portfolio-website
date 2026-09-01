@@ -16,21 +16,18 @@ function ricardo_leal_enqueue_styles() {
     );
 }
 
-// Shortcode 100% automático: [github_stars]
+// 2. Shortcode 100% automático: [github_stars]
 add_shortcode( 'github_stars', function() {
-    // 1. Obtener el ID de la entrada actual en el Query Loop
     $post_id = get_the_ID();
     if ( ! $post_id ) {
         return '';
     }
 
-    // 2. Leer la URL guardada en el campo personalizado 'github_url'
     $github_url = get_post_meta( $post_id, 'github_url', true );
     if ( empty( $github_url ) ) {
         return '';
     }
 
-    // 3. Extraer automáticamente 'usuario/repositorio' de la URL (ej: ricardolealpi/windows-server-automation)
     $path  = trim( parse_url( $github_url, PHP_URL_PATH ), '/' );
     $parts = explode( '/', $path );
 
@@ -42,7 +39,7 @@ add_shortcode( 'github_stars', function() {
     $transient_key = 'gh_stars_' . md5( $repo );
     $stars         = get_transient( $transient_key );
 
-    // 4. Consultar API si no hay caché guardada
+    // Consultar API de GitHub si no existe caché
     if ( false === $stars ) {
         $response = wp_remote_get( 'https://api.github.com/repos/' . $repo, array(
             'headers' => array( 'User-Agent' => 'WordPress-Portfolio' ),
@@ -59,19 +56,32 @@ add_shortcode( 'github_stars', function() {
         set_transient( $transient_key, $stars, 12 * HOUR_IN_SECONDS );
     }
 
-    // 5. Si tiene 0 estrellas o no existe el repo, no renderiza nada
     if ( $stars <= 0 ) {
         return '';
     }
 
     return '<span class="card-stars"><span>' . esc_html( $stars ) . '</span> ★</span>';
 } );
-// 3. Cambiar texto del Copyright en el pie de página
+
+// 3. Borrar la caché de estrellas automáticamente al actualizar la entrada
+add_action( 'save_post', function( $post_id ) {
+    $github_url = get_post_meta( $post_id, 'github_url', true );
+    if ( $github_url ) {
+        $path  = trim( parse_url( $github_url, PHP_URL_PATH ), '/' );
+        $parts = explode( '/', $path );
+        if ( count( $parts ) >= 2 ) {
+            $repo = sanitize_text_field( $parts[0] . '/' . $parts[1] );
+            delete_transient( 'gh_stars_' . md5( $repo ) );
+        }
+    }
+} );
+
+// 4. Cambiar texto del Copyright en el pie de página
 add_filter( 'generate_copyright', function() {
     return '&copy; ' . date('Y') . ' Ricardo Leal Piñeres. Todos los derechos reservados.';
 } );
 
-// 4. Modo Oscuro/Claro: Aplicar clase en <head> para evitar parpadeo (FOUC)
+// 5. Modo Oscuro/Claro: Aplicar clase en <head> para evitar parpadeo (FOUC)
 add_action( 'wp_head', function() {
     ?>
     <script>
@@ -82,7 +92,7 @@ add_action( 'wp_head', function() {
     <?php
 }, 1 );
 
-// 5. Listener para el botón de Toggle del Modo Oscuro/Claro
+// 6. Listener para el botón de Toggle del Modo Oscuro/Claro
 add_action( 'wp_footer', function() {
     ?>
     <script>
