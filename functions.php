@@ -41,7 +41,7 @@ add_shortcode( 'github_stars', function() {
     }
 
     $repo          = sanitize_text_field( $parts[0] . '/' . $parts[1] );
-    $transient_key = 'gh_stars_' . md5( $repo );
+    $transient_key = 'gh_stars_V2_' . md5( $repo );
     $stars         = get_transient( $transient_key );
 
     if ( false === $stars ) {
@@ -75,7 +75,7 @@ add_action( 'save_post', function( $post_id ) {
         $parts = explode( '/', $path );
         if ( count( $parts ) >= 2 ) {
             $repo = sanitize_text_field( $parts[0] . '/' . $parts[1] );
-            delete_transient( 'gh_stars_' . md5( $repo ) );
+            delete_transient( 'gh_stars_V2_' . md5( $repo ) );
         }
     }
 } );
