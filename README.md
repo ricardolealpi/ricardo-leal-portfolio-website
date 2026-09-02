@@ -14,9 +14,10 @@ Sitio web personal y portafolio técnico enfocado en Cloud Infrastructure, Syste
 
 ## 📁 Estructura del Tema Hijo
 
+```text
 generatepress-child/
 ├── style.css             # Arquitectura CSS (Variables, Dark/Light Mode, Safari fixes, Badges)
 ├── functions.php         # Shortcode GitHub API, Transient Cache, Hooks GP, Dark Mode scripts
 ├── .github/
 │   └── workflows/        # Pipeline de CI/CD con GitHub Actions (Despliegue automatizado)
-└── README.md             # Documentación técnica del proyecto
+└── README.md             # Documentación técnica del proyecto      # Documentación técnica del proyecto
