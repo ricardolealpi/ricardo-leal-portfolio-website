@@ -4,7 +4,7 @@
  Author:       Ricardo Leal Piñeres
  Author URI:   https://ricardoleal.cloud
  Template:     generatepress
- Version:      1.1.4
+ Version:      1.1.5
 */
 
 /* ==========================================================================
@@ -105,14 +105,20 @@ body {
     background: var(--selection-bg);
 }
 
+/* Transición global para enlaces y elementos interactivos */
+a, .gb-button, button {
+    transition: all 0.2s ease-in-out !important;
+}
+
 a {
     color: var(--accent-blue);
     text-decoration: none;
-    transition: opacity 0.2s ease-in-out;
 }
 
-a:hover {
-    opacity: 0.8;
+/* Hover dinámico en enlaces de contenido (excluye menú principal y botones) */
+body a:not(.main-navigation a):not(.menu-toggle):not(.gb-button):not(.button):hover {
+    color: #60a5fa !important;
+    opacity: 1 !important;
 }
 
 h1, h2, h3, h4 {
@@ -137,14 +143,6 @@ p {
     font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
     font-size: 0.9em;
 }
-/* ==========================================================================
-   FIX HOVER ENLACES GLOBALES (EXCLUYENDO MENÚ DE NAVEGACIÓN)
-   ========================================================================== */
-
-/* Aplica color visible al hacer hover en enlaces del contenido, tarjetas y footer */
-body a:not(.main-navigation a):not(.menu-toggle):hover {
-    color: var(--accent-blue) !important;
-}
 
 /* ==========================================================================
    3. ESTRUCTURA, NAVEGACIÓN Y BARRA LATERAL (ESCRITORIO)
@@ -154,17 +152,14 @@ body a:not(.main-navigation a):not(.menu-toggle):hover {
     background: transparent !important;
 }
 
-/* Ocultar la cabecera superior por completo */
 .site-header {
     display: none !important;
 }
 
-/* Habilitar viewport para sticky scroll */
 #content.site-content {
     overflow: visible !important;
 }
 
-/* Estructura y comportamiento Sticky de Barra Lateral Izquierda */
 #left-sidebar {
     align-self: flex-start !important;
     position: sticky !important;
@@ -187,7 +182,6 @@ body a:not(.main-navigation a):not(.menu-toggle):hover {
     padding-left: 2rem !important;
 }
 
-/* Espaciado de Widgets en el Menú Lateral */
 #left-sidebar .widget {
     background: transparent !important;
     box-shadow: none !important;
@@ -262,11 +256,27 @@ body.light-mode #theme-toggle .icon-sun { display: none !important; }
 body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 
 /* ==========================================================================
-   5. COMPONENTES DE UI (TARJETAS Y BOTONES)
+   5. COMPONENTES DE UI (TARJETAS, BOTONES Y NAVEGACIÓN)
    ========================================================================== */
 
 .entry-title {
     color: var(--text-main) !important;
+}
+
+/* Títulos de tarjetas con interacción hover brillante */
+.entry-title a,
+.gb-grid-wrapper h2 a,
+.gb-grid-wrapper h3 a {
+    color: var(--text-main) !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease-in-out !important;
+}
+
+.entry-title a:hover,
+.gb-grid-wrapper h2 a:hover,
+.gb-grid-wrapper h3 a:hover {
+    color: #60a5fa !important;
+    opacity: 1 !important;
 }
 
 /* Tarjeta Universal */
@@ -301,11 +311,25 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     margin-bottom: 0.2em !important;
 }
 
-/* Botones Apple / CTA Principal */
+/* Icono e indicador de GitHub Stars */
+.card-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.card-stars .star-icon {
+    color: #f59e0b !important;
+}
+
+/* Botones Principales (Elevación, Resplandor y Cero Opacidad) */
+.gb-button, 
+button, 
+.button,
 .apple-button, 
 .gb-button.ricardo-cta {
-    background-color: var(--accent-blue) !important;
-    color: var(--btn-cta-text) !important;
+    background-color: #2563eb !important;
+    color: #ffffff !important;
     border-radius: 980px !important;
     padding: 12px 28px !important;
     font-weight: 600 !important;
@@ -314,21 +338,33 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     align-items: center;
     justify-content: center;
     border: none !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: all 0.2s ease-in-out !important;
 }
 
+.gb-button:hover, 
+button:hover, 
+.button:hover,
 .apple-button:hover, 
 .gb-button.ricardo-cta:hover {
-    transform: scale(1.03);
-    filter: brightness(1.1);
-    box-shadow: 0 8px 20px var(--btn-cta-shadow);
+    background-color: #3b82f6 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45) !important;
+    opacity: 1 !important;
+}
+
+/* Botones Secundarios */
+.gb-button-secondary:hover {
+    border-color: #60a5fa !important;
+    color: #60a5fa !important;
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.25) !important;
+    transform: translateY(-2px) !important;
+    opacity: 1 !important;
 }
 
 /* ==========================================================================
    6. ETIQUETAS Y BADGES (ESTÁTICAS Y DINÁMICAS DEL QUERY LOOP)
    ========================================================================== */
 
-/* 6.1. Etiquetas Estáticas (.card-tags) */
 .card-tags {
     display: flex;
     flex-wrap: wrap;
@@ -361,7 +397,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     transform: translateY(-1px);
 }
 
-/* Variantes de Color para Píldoras Estáticas */
 .tag-green, .badge-green {
     color: var(--accent-green) !important;
     background-color: var(--tag-green-bg) !important;
@@ -380,10 +415,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     border-color: var(--tag-orange-border) !important;
 }
 
-/* ==========================================================================
-   6.2. ETIQUETAS DINÁMICAS Y LISTAS (Estructura Base y Azul por Defecto)
-   ========================================================================== */
-
+/* 6.2. Etiquetas Dinámicas y Listas */
 .dynamic-tags-container,
 .wp-block-categories-list,
 .wp-block-list.dynamic-tags-container,
@@ -404,7 +436,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     width: 100% !important;
 }
 
-/* 1. Resetear <li> cuando contiene un enlace <a> o un <span> interno */
 .dynamic-tags-container li:has(a),
 .dynamic-tags-container li:has(span),
 .wp-block-categories-list li:has(a),
@@ -415,7 +446,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     margin: 0 !important;
 }
 
-/* 2. Estilo base (Azul) para elementos de etiqueta */
 .dynamic-tags-container li:not(:has(a)):not(:has(span)),
 .dynamic-tags-container a,
 .dynamic-tags-container span,
@@ -440,7 +470,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     margin: 0 !important;
 }
 
-/* 3. Hover Base */
 .dynamic-tags-container li:not(:has(a)):not(:has(span)):hover,
 .dynamic-tags-container a:hover,
 .dynamic-tags-container span:hover,
@@ -449,11 +478,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     transform: translateY(-1px) !important;
 }
 
-/* ==========================================================================
-   6.3. VARIANTES DE COLOR CON MÁXIMA PRIORIDAD (OVERRIDE UNIVERSAL)
-   ========================================================================== */
-
-/* Píldoras Púrpuras (DevOps, Automatización, PowerShell, GitHub) */
+/* 6.3. Variantes de Color para Etiquetas Dinámicas */
 .tag-purple, .badge-purple,
 .tag-purple a, .tag-purple span, .tag-purple li,
 .dynamic-tags-container .tag-purple,
@@ -466,7 +491,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     border-color: var(--tag-purple-border) !important;
 }
 
-/* Píldoras Verdes (Certificaciones, Success, Status) */
 .tag-green, .badge-green,
 .tag-green a, .tag-green span, .tag-green li,
 .dynamic-tags-container .tag-green,
@@ -479,7 +503,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     border-color: var(--tag-green-border) !important;
 }
 
-/* Píldoras Naranjas (En preparación, Metas en curso) */
 .tag-orange, .badge-orange,
 .tag-orange a, .tag-orange span, .tag-orange li,
 .dynamic-tags-container .tag-orange,
@@ -491,12 +514,12 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     background-color: var(--tag-orange-bg) !important;
     border-color: var(--tag-orange-border) !important;
 }
+
 /* ==========================================================================
    7. REGLAS RESPONSIVAS PARA MÓVILES (< 768px)
    ========================================================================== */
 
 @media (max-width: 768px) {
-    /* 1. Anular por completo el comportamiento sticky / fijo de la barra lateral */
     #left-sidebar,
     #left-sidebar .inside-left-sidebar,
     #left-sidebar .widget,
@@ -516,14 +539,12 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         padding: 0 !important;
     }
 
-    /* 2. Reordenar el contenedor global en columna */
     #content.site-content {
         display: flex !important;
         flex-direction: column !important;
         overflow: visible !important;
     }
 
-    /* 3. Colocar la barra lateral en la parte superior sin fijar */
     #left-sidebar {
         order: -1 !important;
         width: 100% !important;
@@ -534,7 +555,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         border-bottom: 1px solid var(--border-color) !important;
     }
 
-    /* 4. Distribuir utilidades a la izquierda/centro y menú a la derecha */
     #left-sidebar .inside-left-sidebar {
         display: flex !important;
         flex-direction: row !important;
@@ -544,7 +564,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         gap: 10px !important;
         width: 100% !important;
     }
-/* Botón Hamburguesa, Texto "Menú", e Icono de Cierre (X) */
+
     .menu-toggle,
     .menu-toggle:hover,
     .menu-toggle:focus,
@@ -556,7 +576,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         background: transparent !important;
     }
 
-    /* SVG de las 3 líneas y la X de salida */
     .menu-toggle .gp-icon,
     .menu-toggle .gp-icon svg,
     .mobile-menu svg,
@@ -567,7 +586,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         color: var(--text-main) !important;
     }
 
-    /* Enlaces dentro del Menú Móvil */
     .main-navigation .main-nav ul li a,
     .main-navigation.toggled .main-nav ul li a,
     #left-sidebar .widget_nav_menu ul li a,
@@ -575,7 +593,6 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         color: var(--text-main) !important;
     }
 
-    /* Hover en los Enlaces Móviles */
     .main-navigation .main-nav ul li a:hover,
     .main-navigation.toggled .main-nav ul li a:hover,
     #left-sidebar .widget_nav_menu ul li a:hover,
@@ -584,8 +601,7 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     #left-sidebar .main-navigation ul li.current-menu-item > a {
         color: var(--accent-blue) !important;
     }
-    
-    /* 6. Convertir la lista del menú a fila horizontal compacta / desplegable accesible */
+
     #left-sidebar .widget_nav_menu ul,
     #left-sidebar .main-navigation ul,
     .main-navigation.toggled .main-nav ul {
@@ -621,31 +637,28 @@ body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
         color: var(--accent-blue) !important;
     }
 
-    /* 7. Asegurar ancho completo en el área de contenido principal */
     #primary.content-area {
         order: 2 !important;
         width: 100% !important;
         padding-left: 0 !important;
     }
 }
+
 /* ==========================================================================
-   LIMPIEZA DE METADATOS Y COMENTARIOS EN PORTAFOLIO
+   8. LIMPIEZA DE METADATOS Y COMENTARIOS EN PORTAFOLIO
    ========================================================================== */
 
-/* Ocultar autor/correo de la cabecera */
 body.single .entry-header .byline,
 body.single .entry-header .author,
 body.single .entry-meta .byline {
     display: none !important;
 }
 
-/* Ocultar metadatos inferiores (categorías, etiquetas y navegación entre posts) */
 body.single footer.entry-meta,
 body.single .post-navigation {
     display: none !important;
 }
 
-/* Ocultar la caja de comentarios por completo */
 body.single #comments,
 body.single .comments-area {
     display: none !important;
