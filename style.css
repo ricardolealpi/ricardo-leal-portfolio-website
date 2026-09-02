@@ -21,7 +21,6 @@
 
     /* Modo Oscuro (Default) - Estilo GitHub Console */
     --bg-color: #0d1117;                 /* Gris carbón técnico */
-    --header-bg: rgba(13, 17, 23, 0.85);  /* Transparencia adaptada */
     --text-main: #f0f6fc;                /* Blanco suave de baja fatiga */
     --text-secondary: #8b949e;           /* Gris sutil para descripciones */
     --card-bg: #161b22;                  /* Fondo de tarjeta elevado 1 nivel */
@@ -56,7 +55,6 @@
 /* Modo Claro Override (High-Contrast Tech Clean) */
 html.light-mode {
     --bg-color: #ffffff;
-    --header-bg: rgba(255, 255, 255, 0.85);
     --text-main: #1f2328;
     --text-secondary: #656d76;
     --card-bg: #f6f8fa;
@@ -266,20 +264,15 @@ html.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
     color: var(--text-main) !important;
 }
 
-/* Títulos de tarjetas con interacción hover brillante */
+/* Títulos de tarjetas con interacción hover brillante
+   (cubierto por la regla genérica body a:not(...):hover de la sección 2;
+   no hace falta repetirlo aquí) */
 .entry-title a,
 .gb-grid-wrapper h2 a,
 .gb-grid-wrapper h3 a {
     color: var(--text-main) !important;
     text-decoration: none !important;
     transition: color 0.2s ease-in-out !important;
-}
-
-.entry-title a:hover,
-.gb-grid-wrapper h2 a:hover,
-.gb-grid-wrapper h3 a:hover {
-    color: #60a5fa !important;
-    opacity: 1 !important;
 }
 
 /* Tarjeta Universal */
@@ -332,7 +325,7 @@ button,
 .apple-button, 
 .gb-button.ricardo-cta {
     background-color: #2563eb !important;
-    color: #ffffff !important;
+    color: var(--btn-cta-text) !important;
     border-radius: 980px !important;
     padding: 12px 28px !important;
     font-weight: 600 !important;
@@ -351,7 +344,7 @@ button:hover,
 .gb-button.ricardo-cta:hover {
     background-color: #3b82f6 !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45) !important;
+    box-shadow: 0 6px 20px var(--btn-cta-shadow) !important;
     opacity: 1 !important;
 }
 
@@ -367,6 +360,10 @@ button:hover,
 /* ==========================================================================
    6. ETIQUETAS Y BADGES (ESTÁTICAS Y DINÁMICAS DEL QUERY LOOP)
    ========================================================================== */
+
+/* ------------------------------------------------------------------------
+   6.1. ESTILOS BASE
+   ------------------------------------------------------------------------ */
 
 .card-tags {
     display: flex;
@@ -400,23 +397,9 @@ button:hover,
     transform: translateY(-1px);
 }
 
-.tag-green, .badge-green {
-    color: var(--accent-green) !important;
-    background-color: var(--tag-green-bg) !important;
-    border-color: var(--tag-green-border) !important;
-}
-
-.tag-purple, .badge-purple {
-    color: var(--accent-purple) !important;
-    background-color: var(--tag-purple-bg) !important;
-    border-color: var(--tag-purple-border) !important;
-}
-
-.tag-orange, .badge-orange {
-    color: var(--accent-orange) !important;
-    background-color: var(--tag-orange-bg) !important;
-    border-color: var(--tag-orange-border) !important;
-}
+/* Las variantes de color (verde/morado/naranja) para .tag/.badge se
+   definen una sola vez, en la sección 6.3, junto con sus equivalentes
+   dinámicas — evita mantener dos copias iguales de las mismas reglas. */
 
 /* ==========================================================================
    6.2. ETIQUETAS DINÁMICAS Y LISTAS (Estructura Base y Desactivación de Clics)
@@ -732,13 +715,6 @@ blockquote {
 
 .entry-content tr:last-child td {
     border-bottom: none !important;
-}
-
-/* 4. Resaltado de Código Inline (ej: `comando`) */
-.entry-content code:not([class*="language-"]) {
-    color: var(--accent-blue) !important;
-    font-family: 'Fira Code', 'IBM Plex Mono', monospace !important;
-    font-size: 0.90em !important;
 }
 .site-footer {
     background: transparent !important;
