@@ -415,7 +415,10 @@ button:hover,
     border-color: var(--tag-orange-border) !important;
 }
 
-/* 6.2. Etiquetas Dinámicas y Listas */
+/* ==========================================================================
+   6.2. ETIQUETAS DINÁMICAS Y LISTAS (Estructura Base y Desactivación de Clics)
+   ========================================================================== */
+
 .dynamic-tags-container,
 .wp-block-categories-list,
 .wp-block-list.dynamic-tags-container,
@@ -446,6 +449,7 @@ button:hover,
     margin: 0 !important;
 }
 
+/* Estilo base de píldoras + Anulación de clic y cursor de enlace */
 .dynamic-tags-container li:not(:has(a)):not(:has(span)),
 .dynamic-tags-container a,
 .dynamic-tags-container span,
@@ -468,17 +472,16 @@ button:hover,
     white-space: nowrap !important;
     transition: all 0.2s ease !important;
     margin: 0 !important;
+    
+    /* Desactivar la interacción de clic y mantener el cursor normal */
+    pointer-events: none !important;
+    cursor: default !important;
 }
 
-.dynamic-tags-container li:not(:has(a)):not(:has(span)):hover,
-.dynamic-tags-container a:hover,
-.dynamic-tags-container span:hover,
-.wp-block-categories-list a:hover {
-    filter: brightness(1.15) !important;
-    transform: translateY(-1px) !important;
-}
+/* ==========================================================================
+   6.3. VARIANTES DE COLOR PARA ETIQUETAS DINÁMICAS
+   ========================================================================== */
 
-/* 6.3. Variantes de Color para Etiquetas Dinámicas */
 .tag-purple, .badge-purple,
 .tag-purple a, .tag-purple span, .tag-purple li,
 .dynamic-tags-container .tag-purple,
@@ -514,8 +517,7 @@ button:hover,
     background-color: var(--tag-orange-bg) !important;
     border-color: var(--tag-orange-border) !important;
 }
-
-/* ==========================================================================
+/*==========================================================================
    7. REGLAS RESPONSIVAS PARA MÓVILES (< 768px)
    ========================================================================== */
 

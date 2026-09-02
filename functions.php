@@ -59,7 +59,7 @@ add_shortcode( 'github_stars', function ( $atts ) {
 		return '';
 	}
  
-	return '<span class="card-stars"><span>' . esc_html( $stars ) . '</span class="star-icon"> ★</span>';
+return '<span class="card-stars"><span>' . esc_html( $stars ) . '</span> <span class="star-icon">★</span></span>';
 } );
  
 // 2. LA CLAVE DEL FIX: interceptar el bloque nativo "Shortcode" justo cuando GenerateBlocks todavía está dentro de la iteración del Query Loop, cuando get_the_ID() sí apunta a la entrada correcta (240, 242...). Inyectamos ahí el post_id real como atributo y forzamos do_shortcode() de inmediato, en vez de dejar que WordPress lo haga luego.
