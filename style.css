@@ -54,7 +54,7 @@
 }
 
 /* Modo Claro Override (High-Contrast Tech Clean) */
-body.light-mode {
+html.light-mode {
     --bg-color: #ffffff;
     --header-bg: rgba(255, 255, 255, 0.85);
     --text-main: #1f2328;
@@ -219,6 +219,9 @@ p {
 #left-sidebar .main-navigation ul li.current-menu-item > a {
     color: var(--accent-blue) !important;
 }
+.space-into-list-item > li{
+    margin-bottom: 1rem !important;
+}
 
 /* ==========================================================================
    4. BOTÓN CONMUTADOR DE MODO OSCURO / CLARO
@@ -252,8 +255,8 @@ p {
 #theme-toggle .icon-sun { display: inline-block !important; }
 #theme-toggle .icon-moon { display: none !important; }
 
-body.light-mode #theme-toggle .icon-sun { display: none !important; }
-body.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
+html.light-mode #theme-toggle .icon-sun { display: none !important; }
+html.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
 
 /* ==========================================================================
    5. COMPONENTES DE UI (TARJETAS, BOTONES Y NAVEGACIÓN)
@@ -664,4 +667,32 @@ body.single .post-navigation {
 body.single #comments,
 body.single .comments-area {
     display: none !important;
+}
+/* ==========================================================================
+   9. ESTILOS Y ALINEACIÓN DEL PIE DE PÁGINA (FOOTER)
+   ========================================================================== */
+
+.site-footer {
+    background: transparent !important;
+    padding-left: 230px !important; /* Compensa los 230px de la barra lateral */
+    margin-top: 3rem !important;
+}
+
+.site-info {
+    background: transparent !important;
+    color: var(--text-secondary) !important;
+    font-size: var(--font-xs) !important;
+    text-align: center;
+    padding: 2rem 0 !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+.site-info a {
+    color: var(--accent-blue) !important;
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        padding-left: 0 !important; /* Elimina la compensación en móviles */
+    }
 }
