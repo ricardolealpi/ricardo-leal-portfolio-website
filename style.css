@@ -668,10 +668,78 @@ body.single #comments,
 body.single .comments-area {
     display: none !important;
 }
+
 /* ==========================================================================
-   9. ESTILOS Y ALINEACIÓN DEL PIE DE PÁGINA (FOOTER)
+   9. ESTILOS DE LECTURA, ENTRADAS DE BLOG y FOOTER
    ========================================================================== */
 
+/* 1. Legibilidad del cuerpo del texto (Párrafos, Listas y Tablas) */
+.entry-content p,
+.entry-content li,
+.entry-content td {
+    color: var(--text-main) !important; /* Blanco suave (#f0f6fc) para alta legibilidad */
+    line-height: 1.7 !important;
+}
+
+.entry-content strong,
+.entry-content b {
+    color: var(--text-main) !important;
+    font-weight: 700 !important;
+}
+
+/* 2. Citas Destacadas (Blockquote estilo GitHub/Console) */
+.entry-content blockquote,
+blockquote {
+    background-color: var(--card-bg) !important;
+    border-left: 4px solid var(--accent-blue) !important;
+    margin: 1.5rem 0 !important;
+    padding: 1rem 1.25rem !important;
+    border-radius: 0 12px 12px 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.entry-content blockquote p {
+    margin-bottom: 0 !important;
+    color: var(--text-main) !important;
+    font-style: italic;
+}
+
+/* 3. Estilizado Técnico para Tablas */
+.entry-content table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    margin: 1.5rem 0 !important;
+}
+
+.entry-content th {
+    background-color: var(--card-bg-elevated) !important;
+    color: var(--text-main) !important;
+    padding: 12px 16px !important;
+    font-weight: 600 !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    text-align: left !important;
+}
+
+.entry-content td {
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.entry-content tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* 4. Resaltado de Código Inline (ej: `comando`) */
+.entry-content code:not([class*="language-"]) {
+    color: var(--accent-blue) !important;
+    font-family: 'Fira Code', 'IBM Plex Mono', monospace !important;
+    font-size: 0.90em !important;
+}
 .site-footer {
     background: transparent !important;
     padding-left: 230px !important; /* Compensa los 230px de la barra lateral */
