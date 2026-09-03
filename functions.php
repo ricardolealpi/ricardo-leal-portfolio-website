@@ -113,17 +113,40 @@ add_action( 'wp_footer', function() {
     ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.getElementById('theme-toggle');
+            const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
             const root = document.documentElement;
 
-            if (toggleBtn) {
+            toggleBtns.forEach(function (toggleBtn) {
                 toggleBtn.addEventListener('click', () => {
                     root.classList.toggle('light-mode');
                     const isLight = root.classList.contains('light-mode');
                     localStorage.setItem('theme', isLight ? 'light' : 'dark');
                 });
-            }
+            });
         });
     </script>
+    <?php
+} );
+// 7. Área de widgets duplicada para el menú móvil (iconos + toggle de tema)
+add_action( 'widgets_init', function() {
+    register_sidebar( array(
+        'name'          => 'Barra Móvil (Menú)',
+        'id'            => 'menu-bar-movil',
+        'description'   => 'Iconos sociales y toggle de tema duplicados dentro del menú de navegación en móvil.',
+        'before_widget' => '<div class="menu-bar-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
+} );
+
+add_action( 'generate_menu_bar_items', function() {
+    if ( ! is_active_sidebar( 'menu-bar-movil' ) ) {
+        return;
+    }
+    ?>
+    <span class="menu-bar-item mobile-bar-items">
+        <?php dynamic_sidebar( 'menu-bar-movil' ); ?>
+    </span>
     <?php
 } );

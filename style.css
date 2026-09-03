@@ -225,7 +225,7 @@ p {
    4. BOTÓN CONMUTADOR DE MODO OSCURO / CLARO
    ========================================================================== */
 
-#theme-toggle {
+.theme-toggle-btn {
     background-color: var(--card-bg) !important;
     border: 1px solid var(--border-color) !important;
     border-left: 4px solid var(--border-color) !important;
@@ -245,16 +245,16 @@ p {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-#theme-toggle:hover {
+.theme-toggle-btn:hover {
     border-color: var(--accent-blue) !important;
     transform: scale(1.05);
 }
 
-#theme-toggle .icon-sun { display: inline-block !important; }
-#theme-toggle .icon-moon { display: none !important; }
+.theme-toggle-btn .icon-sun { display: inline-block !important; }
+.theme-toggle-btn .icon-moon { display: none !important; }
 
-html.light-mode #theme-toggle .icon-sun { display: none !important; }
-html.light-mode #theme-toggle .icon-moon { display: inline-block !important; }
+html.light-mode .theme-toggle-btn .icon-sun { display: none !important; }
+html.light-mode .theme-toggle-btn .icon-moon { display: inline-block !important; }
 
 /* ==========================================================================
    5. COMPONENTES DE UI (TARJETAS, BOTONES Y NAVEGACIÓN)
@@ -505,54 +505,43 @@ button:hover,
 }
 /*==========================================================================
    7. REGLAS RESPONSIVAS PARA MÓVILES (< 768px)
+   ==========================================================================
+   El sidebar se oculta por completo en móvil
+   y una copia ligera de sus iconos + el toggle de tema se inyecta dentro
+   de la barra de navegación mediante el hook generate_menu_bar_items
+   (ver functions.php).
    ========================================================================== */
 
+/* La copia inyectada en el nav solo debe verse en móvil */
+.mobile-bar-items {
+    display: none;
+}
+
 @media (max-width: 768px) {
-    #left-sidebar,
-    #left-sidebar .inside-left-sidebar,
-    #left-sidebar .widget,
-    #theme-toggle {
-        position: static !important;
-        top: auto !important;
-        bottom: auto !important;
-        left: auto !important;
-        right: auto !important;
-        z-index: auto !important;
-        transform: none !important;
-        margin-top: 0 !important;
-    }
 
-    #left-sidebar .widget {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    #content.site-content {
-        display: flex !important;
-        flex-direction: column !important;
-        overflow: visible !important;
-    }
-
+    /* Oculta la sidebar izquierda completa: el menú de navegación
+       (Inicio/Portafolio/Trayectoria/Blog) NO depende de ella, GP lo
+       resuelve por su cuenta a través del nav#site-navigation con
+       la clase sidebar-nav-mobile. */
     #left-sidebar {
-        order: -1 !important;
-        width: 100% !important;
-        flex: 0 0 100% !important;
-        align-self: stretch !important;
-        margin-bottom: 1.2rem !important;
-        padding-bottom: 0.8rem !important;
-        border-bottom: 1px solid var(--border-color) !important;
+        display: none !important;
     }
 
-    #left-sidebar .inside-left-sidebar {
+    /* Sin sidebar, el contenido principal ocupa todo el ancho */
+    #primary.content-area {
+        width: 100% !important;
+        padding-left: 0 !important;
+    }
+
+    /* Muestra la copia de iconos sociales + toggle de tema
+       dentro de la barra de navegación superior */
+    .mobile-bar-items {
         display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        justify-content: space-between !important;
         align-items: center !important;
         gap: 10px !important;
-        width: 100% !important;
     }
 
+    /* --- Estilos del botón hamburguesa (sin cambios respecto a antes) --- */
     .menu-toggle,
     .menu-toggle:hover,
     .menu-toggle:focus,
@@ -575,63 +564,18 @@ button:hover,
     }
 
     .main-navigation .main-nav ul li a,
-    .main-navigation.toggled .main-nav ul li a,
-    #left-sidebar .widget_nav_menu ul li a,
-    #left-sidebar .main-navigation ul li a {
+    .main-navigation.toggled .main-nav ul li a {
         color: var(--text-main) !important;
     }
 
     .main-navigation .main-nav ul li a:hover,
-    .main-navigation.toggled .main-nav ul li a:hover,
-    #left-sidebar .widget_nav_menu ul li a:hover,
-    #left-sidebar .main-navigation ul li a:hover,
-    #left-sidebar .widget_nav_menu ul li.current-menu-item > a,
-    #left-sidebar .main-navigation ul li.current-menu-item > a {
-        color: var(--accent-blue) !important;
-    }
-
-    #left-sidebar .widget_nav_menu ul,
-    #left-sidebar .main-navigation ul,
-    .main-navigation.toggled .main-nav ul {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        gap: 10px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        list-style: none !important;
-        background: transparent !important;
-    }
-
-    #left-sidebar .widget_nav_menu ul li,
-    #left-sidebar .main-navigation ul li {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    #left-sidebar .widget_nav_menu ul li a,
-    #left-sidebar .main-navigation ul li a,
-    .main-navigation.toggled .main-nav ul li a {
-        color: var(--text-main) !important;
-        padding: 4px 6px !important;
-        font-size: 0.85rem !important;
-        line-height: 1.2 !important;
-        display: inline-block !important;
-    }
-
-    #left-sidebar .widget_nav_menu ul li a:hover,
-    #left-sidebar .main-navigation ul li a:hover,
     .main-navigation.toggled .main-nav ul li a:hover {
         color: var(--accent-blue) !important;
     }
-
-    #primary.content-area {
-        order: 2 !important;
-        width: 100% !important;
-        padding-left: 0 !important;
-    }
+    .mobile-bar-items .menu-bar-widget {
+    display: contents;
 }
-
+}
 /* ==========================================================================
    8. LIMPIEZA DE METADATOS Y COMENTARIOS EN PORTAFOLIO
    ========================================================================== */
